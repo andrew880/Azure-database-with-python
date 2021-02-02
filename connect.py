@@ -4,20 +4,7 @@ import numpy as np
 import pandas as pd
 
 # Obtain connection string information from the portal
-conf2ig = {
-  'host':'retailing-test1.mysql.database.azure.com',
-  'user':'retailing880@retailing-test1',
-  'password':'retailing@admin0',
-  'database':'cs110032000cd8f2a75',
-  'client_flags': [1],
-  'ssl_cert': '/var/wwww/html/DigiCertGlobalRootG2.crt.pem'
-}
-config = {
-  'host':'retailing-test1.mysql.database.azure.com',
-  'user':'retailing880@retailing-test1',
-  'database':'test',
-  'password':'retailing@admin0',
-  'ssl_ca':'BaltimoreCyberTrustRoot.crt.pem'}
+from config import config
 # mysql -h retailing-test1.mysql.database.azure.com -u retailing880@retailing-test1 -p
 # Construct connection string
 try:
