@@ -8,8 +8,8 @@ from config import config
 # mysql -h retailing-test1.mysql.database.azure.com -u retailing880@retailing-test1 -p
 # Construct connection string
 try:
-   conn = mysql.connector.connect(**config)
-   print("Connection established")
+  conn = mysql.connector.connect(**config)
+  print("Connection established")
 except mysql.connector.Error as err:
   if err.errno == errorcode.ER_ACCESS_DENIED_ERROR:
     print("Something is wrong with the user name or password")
@@ -38,23 +38,37 @@ else:
 
   # query all tables
   sql = "SHOW tables;"
-  query = pd.read_sql(sql,conn)
+  query = pd.read_sql(sql, conn)
   print(query)
   # read SQL to dataframe
   sql = "SELECT * from inventory;"
-  pd_table = pd.read_sql(sql,conn)
+  pd_table = pd.read_sql(sql, conn)
   print(pd_table)
-  print(type(pd_table))
   print("Finished show table.")
 
-  #Change dataframe
-  df = pd.DataFrame([4,"pinapple",20], columns=['id','name','quantity'])
-  pd_table = pd_table.append(df)
-  print(pd_table)
-  print("Modified table.")
+  # #Change dataframe
+  # df = pd.DataFrame([(4, "pinapple", 20)], columns=['id','name','quantity'])
+  # print(df)
+  # pd_table = pd_table.append(df)
+  # del pd_table["id"]
+  # print(pd_table)
+  # print("Modified table.")
 
-  #Upload to database
-  print("uploaded to database.")
+  # #Upload to database
+  # pd_table.to_sql("inventory", conn, if_exists='append', index='false')
+  # print("Uploaded to database.")
+
+  # # query all tables
+  # sql = "SHOW tables;"
+  # query = pd.read_sql(sql, conn)
+  # print(query)
+
+  # # read SQL to dataframe
+  # sql = "SELECT * from inventory;"
+  # pd_table = pd.read_sql(sql, conn)
+  # print(pd_table)
+  # print("Finished show modified table.")
+
   # Cleanup
   conn.commit()
   cursor.close()
