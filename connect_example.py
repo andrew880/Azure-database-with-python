@@ -18,14 +18,19 @@ engine = create_engine(sqlUrl)
 with engine.begin() as connection:
   print("Connection established")
 
+  # #Choose Database
+  # new_database = "test"
+  # connection.execute("CREATE DATABASE IF NOT EXISTS "+new_database+";")
+  # connection.execute("USE "+new_database+";")
+  # print("Choose Database")
+
   # Drop previous table of same name if one exists
   connection.execute("DROP TABLE IF EXISTS inventory;") 
-  connection.execute("DROP TABLE IF EXISTS users;") 
   print("Finished dropping table (if existed).")
 
   # Create and insert data into table
   pd_table = pd.DataFrame([("pinapple", 20),("banana", 150),("orange", 154)], columns=['name','quantity'])
-  pd_table.to_sql("inventory", connection, index=False)
+  pd_table.to_sql("inventory", connection, index=False, if_exists="append")
   print("Created and uploaded table")
 
   # query all tables
@@ -59,5 +64,4 @@ with engine.begin() as connection:
   print("Finished show modified table.")
 
   # Cleanup
-  connection.close()
   print("Done.")
