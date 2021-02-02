@@ -26,6 +26,7 @@ with engine.begin() as connection:
   # Create and insert data into table
   pd_table = pd.DataFrame([("pinapple", 20),("banana", 150),("orange", 154)], columns=['name','quantity'])
   pd_table.to_sql("inventory", connection, index=False)
+  print("Created and uploaded table")
 
   # query all tables
   sql = "SHOW tables;"

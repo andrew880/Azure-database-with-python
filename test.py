@@ -11,8 +11,31 @@ sqlUrl = engine.url.URL(
   username=config["user"],
   password=config["password"],
   host=config["host"],
-  database=config["database"],
   query={"ssl_ca": "BaltimoreCyberTrustRoot.crt.pem"},
 )
 engine = create_engine(sqlUrl)
-with engine.begin() as connection:
+
+#Begin Connection
+with engine.begin() as connection:  
+  print("Connection established")
+
+  #Create Database
+  connection.execute("CREATE DATABASE test2;")
+  connection.execute("USE test2;")
+  print("Created Database")
+
+  # Create and insert data into table
+  pd_table = pd.DataFrame([("pinapple", 20),("banana", 150),("orange", 154)], columns=['name','quantity'])
+  pd_table.to_sql("inventory", connection, index=False)
+
+  # query all tables
+  sql = "SHOW tables;"
+  query = pd.read_sql(sql, connection)
+  print(query)
+  print("Created and uploaded table")
+  
+  # read SQL to dataframe
+  sql = "SELECT * from inventory;"
+  pd_read = pd.read_sql(sql, connection)
+  print(pd_read)
+  print("Finished show table.")
