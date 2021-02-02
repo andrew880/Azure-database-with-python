@@ -7,7 +7,7 @@ from config import config
 
 # Construct connection string
 sqlUrl = engine.url.URL(
-drivername="mysql",
+  drivername="mysql",
   username=config["user"],
   password=config["password"],
   host=config["host"],
@@ -57,6 +57,6 @@ with engine.begin() as connection:
   print(pd_read_modified)
   print("Finished show modified table.")
 
-# Cleanup
-connection.close()
-print("Done.")
+  # Cleanup
+  connection.close()
+  print("Done.")
